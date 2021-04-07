@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 import pymongo
 from pymongo import MongoClient
-
 import json
 from bson import json_util
 
@@ -10,7 +9,7 @@ cluster = MongoClient(
 
 #db = cluster["Health"]
 db = cluster.Health
-collection = db["Dog"]
+collection = db["Sleep"]
 
 app = Flask(__name__)
 
@@ -22,13 +21,14 @@ def home():
 
 
 # @app.route("/login", methods=["GET"])
-@app.route("/login")
-def profile():
-    all_seeds = list(collection.find({}))
+@app.route("/login/<uid>")
+def profile(uid):
+    all_seeds = list(collection.find({"_id": uid}))
     # return json.dumps(all_seeds, default=json_util.default)
     return render_template("profile.html", all_seeds=all_seeds)
     #return render_template("profile.html")
     # return "HELLO"
+    #return uid
 
 
 if __name__ == "__main__":
