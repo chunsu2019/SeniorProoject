@@ -6,11 +6,75 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+<style>
+    table,
+    th,
+    td {
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2px;
+        border: 1px solid black;
+    }
+
+    table {
+        border-spacing: 5px;
+    }
+</style>
 
 <body>
-    <h3>WELCOME</h3>
-    <h3>{{all_seeds}}</h3>
-</body>
+
+    <!--
+    {% for seed in all_seeds.date1%}
+    <h3>{{seed}}</h3>
+    <br>
+    {% endfor %}
+-->
+
+    <body>
+
+        <table>
+            <tr>
+                <th colspan="2">Sleep</th>
+            </tr>
+
+            <tr>
+                <th scope="col">Date</td>
+                <th scope="col">Hours</td>
+            </tr>
+
+            <script>
+                var seeds = JSON.parse('{{ all_seeds.date1 | tojson}}');
+                var hSeeds = JSON.parse('{{ all_seeds.hours | tojson}}');
+
+                document.open();
+                var length = Object.keys(seeds).length;
+                for (i = 0; i < length; i++) {
+                    document.write("<tr>");
+                    document.write("<td>" + seeds[i] + "</td>");
+                    document.write("<td>" + parseFloat(hSeeds[i], 10).toFixed(2) + "</td>");
+                    document.write("</tr>");
+                }
+                document.close();
+
+            </script>
+
+        </table>
+
+
+        <!--  <script>
+            var seeds = JSON.parse('{{ all_seeds.date1 | tojson}}');
+
+            document.open()
+            seeds.forEach(element => {
+                document.write("<td>" + element + "</td>");
+            });
+            document.close()
+
+        </script>
+        -->
+    </body>
 
 </html>
