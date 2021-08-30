@@ -1,0 +1,40 @@
+{% extends "public/templates/navbar_templates.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Profile</h1>
+            <hr>
+            <h3 class="mt-4">About Me: <textarea rows="3"></textarea> </h3>
+
+            {% if data is none %}
+            <p class="mt-2">
+                <b>Height:</b> none
+            </p>
+            <p>
+                <b>Weight:</b> none
+            </p>
+            <p>
+                <b>Age:</b> none
+            </p>
+
+            {% else %}
+            
+            <p class="mt-2">
+                <b>Height:</b> {{data.feet}} ft {{data.inches}} in
+            </p>
+            <p>
+                <b>Weight:</b> {{data.weight}} lb
+            </p>
+            <p>
+                <b>Age:</b> {{data.age}} years old
+            </p>
+
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

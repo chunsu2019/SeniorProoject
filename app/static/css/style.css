@@ -1,0 +1,50 @@
+a:link {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #32A060;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+a:active {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.nav-pills>li>a.active {
+    color: rgb(60, 54, 54) !important;
+    background-color: #32A060 !important;
+}
+
+.nav-pills>li>a:hover {
+    color: rgb(60, 54, 54) !important;
+    background-color: #77b891 !important;
+}
+
+.vertical-line{
+    border-left: 1px solid #ccc;
+    height: 100%;
+    width: 2px;
+}
+
+.add_btn{
+    background-color: #32A060;
+    padding: 1rem;
+    margin-top: 5rem; 
+    margin-left: 13rem;
+}
+
+.add_btn:hover{
+    background-color:#4be68c;
+}
