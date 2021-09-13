@@ -1,7 +1,11 @@
 from app import app
 from flask import render_template, request, redirect, session, flash, url_for
 from .firebase import *
-
+import base64
+from werkzeug.utils import secure_filename
+import os
+import requests
+import json
 import pymongo
 import datetime
 
@@ -50,7 +54,17 @@ def firebaseLogin():
 
         if login(email, password):
             session["email"] = email
-            return redirect(url_for("home"))
+            
+            collection =  db["Profile"]
+            profileData = collection.find_one({"_id": getUID()})
+            
+            if profileData:
+                session["profile_img_url"] = profileData["profile_image_url"]
+            else:
+                session.pop("profile_img_url", None)
+            
+            #return redirect(url_for("home"))
+            return render_template("public/home.html")
         else:
             flash("Invalid Email or Password")
             return redirect(url_for("index"))
@@ -65,6 +79,8 @@ def firebaseSignup():
         if createAccount(email, password):
             session["email"] = email
             login(email, password)
+            session.pop("profile_img_url", None)
+            
             return redirect(url_for("home"))
         else:
             flash("The email address you have entered is already registered")
@@ -73,6 +89,7 @@ def firebaseSignup():
 @app.route("/firebase_logout")
 def firebaseLogout():
     logout()
+    session.pop("profile_img_url", None)
     return redirect(url_for("index"))
 
 @app.route("/home")
@@ -135,7 +152,11 @@ def write():
                  "date": request.form["date"],
                  "reading": request.form["reading"]
                  }
-        collection.insert_one(form1)
+        
+        collection.update_one({"_id": getUID()},
+                              {"$set":form1},
+                              upsert=True
+        )
     
     else: 
         print("ERROR")
@@ -143,3 +164,43 @@ def write():
     print("not called")
     
     return render_template("public/home.html")
+
+@app.route("/edit-profile", methods=["POST", "GET"])
+def editProfile():
+    collection = db["Profile"]
+    
+    #Imgbb API (upload profile pic to imgbb)
+    #f = request.files["editPImage"]
+    #f.save(secure_filename(f.filename))
+    
+    url = "https://api.imgbb.com/1/upload"
+    
+    image = request.files["editPImage"]
+    image_string = base64.b64encode(image.read())
+    
+    payload = {
+        "key": "c92cdfcadffe1289746eca2c06fd5204",
+        "image": image_string
+    }
+    
+    res = requests.post(url, payload)  
+    imageUrl = res.json()["data"]["image"]["url"]
+    
+    form = {"_id": getUID(),
+            "aboutme": request.form["aboutme"],
+            "username": request.form["username"],
+            "feet": request.form["feet"],
+            "inches": request.form["inches"],
+            "weight": request.form["weight"],
+            "age": request.form["age"],
+            "profile_image_url": imageUrl
+                }
+    
+    collection.update_one({"_id": getUID()},
+                          {"$set":form},
+                          upsert=True
+                          )
+    
+    session["profile_img_url"] = imageUrl
+        
+    return redirect(url_for("profile"))

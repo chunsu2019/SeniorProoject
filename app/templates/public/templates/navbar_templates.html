@@ -12,8 +12,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="../../static/css/style.css">
 
-    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
-
     <title>{% block title %} {% endblock %}</title>
 </head>
 
@@ -29,9 +27,14 @@
                 <div class="d-flex flex-column align-items-sm-start px-5
                         mh-100">
 
-                    <div class="container mt-4 mb-3 align-content-center ms-3" style="width: 100%;">
+                    <div class="container mt-4 mb-3 ms-3" style="width: 100%;">
+                        {% if 'profile_img_url' not in session %}
                         <img src="https://i.ibb.co/zRyKTmf/pro.png" alt="Profile Pic" style="border: 3px solid; border-radius: 50%;
                                 border-color: #32A060" width="150" height="150">
+                        {% else %}
+                        <img src="{{session['profile_img_url']}}" alt="Profile Pic" style="border: 3px solid; border-radius: 50%;
+                                border-color: #32A060" width="150" height="150">
+                        {% endif %}
                     </div>
 
                     <p style="width: 100%; text-align: center; font-size:
@@ -124,11 +127,14 @@
                 </div>
             </div>
             <div class="col py-3" style="background-color:
-                                    whitesmoke;">
+                                    whitesmoke; overflow:scroll;">
                 {% block content %} {% endblock %}
             </div>
         </div>
     </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
 
     <!-- Optional JavaScript; choose one of the two! -->
     <!-- Option 1: Bootstrap Bundle with Popper -->

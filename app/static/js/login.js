@@ -1,27 +1,10 @@
 var today = new Date(new Date().getTime() - new Date().getTimezoneOffset() * 60000).toISOString().split("T")[0];
 
-document.getElementById("date").value = today;
-document.getElementById("date").max = today;
+//document.getElementById("date").value = today;
+//document.getElementById("date").max = today;
 
 //Firebase login
-function login() {
-    var userEmail = document.getElementById("inputEmail").value;
-    var userPassword = document.getElementById("inputPassword").value;
 
-    firebase.auth().signInWithEmailAndPassword(userEmail, userPassword)
-        .then((userCredential) => {
-            var user = userCredential.user;
-
-            uid = user.uid;
-
-            window.location.href = 'http://127.0.0.1:5000/home'
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            window.alert(errorCode + " " + errorMessage);
-        });
-}
 
 //
 $('select').on('change', function (e) {
@@ -123,4 +106,14 @@ $("#add").click(function () {
 
 $(document).on('click', '#removeRow', function () {
     $(this).closest('#dynamicRow').remove();
+});
+
+
+
+$("#editPImage").on('change', function(file) {
+    var fReader = new FileReader();
+    fReader.readAsDataURL(document.getElementById("editPImage").files[0]);
+    fReader.onloadend = function(event) {
+        document.getElementById("profileImage").src = event.target.result;
+    }
 });
