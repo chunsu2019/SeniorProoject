@@ -1,0 +1,51 @@
+*, html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
+.d-flex.flex-row.justify-content-center {
+    height: 100%;
+    background-color: #FFFFFF;
+}
+
+.col-2.align-self-center {
+    margin-top: 50px;
+    border-right: 5px solid;
+    border-right-color: gray;
+}
+
+.logo {
+    margin-left: 30px;
+}
+
+.welcomeText {
+    margin: 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.signInText {
+    margin-bottom: 30px;
+}
+
+.formContainer {
+    width: 90%;
+}
+
+.formContainer .btn {
+    width: 100%;
+    background-color: #43ce72;
+    font-weight: bolder;
+    border-radius: 20px;
+}
+
+.signUp {
+    text-align: center;
+    font-size: 13px;
+    color: blue;
+}

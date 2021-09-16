@@ -1,4 +1,5 @@
 import pyrebase
+from flask import session
 
 firebaseConfig = {
   "apiKey": "AIzaSyBXvkA0HPuhwmLTRYYWMS4xCfzC5kV5dY4",
@@ -20,8 +21,8 @@ def login(email, password):
     print("inside login", email, password)
     return True
   except:
-    print("Invalid email or password")
-    print("inside login", email, password)
+    #print("Invalid email or password")
+    #print("inside login", email, password)
     return False
   
 def createAccount(email, password):
@@ -33,18 +34,13 @@ def createAccount(email, password):
     
 def logout():
   auth.current_user = None
-  print("signout")
+  #print("signout")
 
 def isLoggedIn():
-  if auth.current_user:
-    print("LoggedIn")
+  if not session.get("currentUser") is None:
     return True
   else:
-    print("Not Logged In")
     return False
         
 def getUID():
-  if auth.current_user:
-    return auth.current_user["localId"]
-  else:
-    return (0)  
+  return auth.current_user["localId"]

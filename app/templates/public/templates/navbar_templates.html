@@ -10,41 +10,36 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../../static/css/nav_bar_template.css">
+
+    {% block css %} {% endblock %}
 
     <title>{% block title %} {% endblock %}</title>
 </head>
 
 <body>
 
-    <div class="container-fluid">
+    <div class="pageContainer container-fluid">
         <div class="row flex-nowrap">
             <div class="col-auto px-0">
-                <div class="py-4" style="width:100%; background-color: #32A060">
+                <div class="appName py-4">
                     <h2>[App Name]</h2>
                 </div>
 
                 <div class="d-flex flex-column align-items-sm-start px-5
                         mh-100">
 
-                    <div class="container mt-4 mb-3 ms-3" style="width: 100%;">
+                    <div class="container mt-4 mb-3 ms-3">
                         {% if 'profile_img_url' not in session %}
-                        <img src="https://i.ibb.co/zRyKTmf/pro.png" alt="Profile Pic" style="border: 3px solid; border-radius: 50%;
-                                border-color: #32A060" width="150" height="150">
+                        <img class="profilePic" src="https://i.ibb.co/zRyKTmf/pro.png" alt="Profile Pic">
                         {% else %}
-                        <img src="{{session['profile_img_url']}}" alt="Profile Pic" style="border: 3px solid; border-radius: 50%;
-                                border-color: #32A060" width="150" height="150">
+                        <img class="profilePic" src="{{session['profile_img_url']}}" alt="Profile Pic">
                         {% endif %}
                     </div>
 
-                    <p style="width: 100%; text-align: center; font-size:
-                            20px;">{{ session["email"] }}</p>
+                    <hr class="navbarHR">
 
-                    <hr style="width: 225px; margin-top: 50px; height: 5px;
-                            border-width: 0; color: green;">
-
-                    <ul class="nav nav-pills flex-column" style="margin-top:
-                            30px; width: 100%; gap: 20px;">
+                    <ul class="nav nav-pills flex-column">
 
                         <li>
                             {% if active=="home" %}
@@ -54,28 +49,28 @@
 
                                 {% else %}
 
-                                <a href="/home" class="nav-link px-0
-                                        align-middle">
+                                <a href="/home" class="nav-link px-0 align-middle">
 
                                     {% endif %}
-                                    <img src="https://i.ibb.co/YfHk20r/icons8-home-80.png" alt="dashboard-icon"
-                                        width="30px" height="30px" style="margin-right: 20px;">Home
+                                    <img class="navIcon" src="https://i.ibb.co/YfHk20r/icons8-home-80.png"
+                                        alt="dashboard-icon">Home
+
+
                                 </a>
                         </li>
 
                         <li>
                             {% if active=="dashboard" %}
-                            <a href="/dashboard" class="nav-link active
-                                        px-0 align-middle">
+                            <a href="/dashboard" class="nav-link active px-0 align-middle">
 
                                 {% else %}
 
-                                <a href="/dashboard" class="nav-link
-                                            px-0 align-middle">
+                                <a href="/dashboard" class="nav-link px-0 align-middle">
 
                                     {% endif %}
-                                    <img src="https://i.ibb.co/ThS2rSS/icons8-dashboard-60.png" alt="dashboard-icon"
-                                        width="30px" height="30px" style="margin-right: 20px;">Dashboard
+                                    <img class="navIcon" src="https://i.ibb.co/ThS2rSS/icons8-dashboard-60.png"
+                                        alt="dashboard-icon">Dashboard
+
                                 </a>
                         </li>
 
@@ -90,8 +85,8 @@
                                                 px-0 align-middle">
 
                                     {% endif %}
-                                    <img src="https://i.ibb.co/6tZ6KvY/icons8-details-50.png" alt="details-icon"
-                                        width="30px" height="30px" style="margin-right: 20px;">Details
+                                    <img class="navIcon" src="https://i.ibb.co/6tZ6KvY/icons8-details-50.png"
+                                        alt="details-icon">Details
                                 </a>
                         </li>
 
@@ -102,32 +97,23 @@
 
                                 {% else %}
 
-                                <a href="/profile" class="nav-link px-0
-                                                    align-middle">
+                                <a href="/profile" class="nav-link px-0 align-middle">
 
                                     {% endif %}
-                                    <img src="https://i.ibb.co/gvGhpDY/icons8-male-user-50.png" alt="profile-icon"
-                                        width="30px" height="30px" style="margin-right:
-                                                        20px;">Profile
-                                </a>
+
+                                    <img class="navIcon" src="https://i.ibb.co/gvGhpDY/icons8-male-user-50.png"
+                                        alt="profile-icon">Profile </a>
                         </li>
 
                     </ul>
 
-                    <hr style="width: 100%; margin-top:
-                                            50px; height: 5px; border-width: 0;
-                                            color: green;">
+                    <hr class="navbarHR">
 
-                    <button style="width: 100%; border-radius:
-                                            13px; margin-top: 13rem;
-                                            margin-bottom: 1rem;
-                                            background-color: #77b891;"
-                        onclick="window.location ='/firebase_logout'">Log
+                    <button class="logoutButton" onclick="window.location ='/firebase_logout'">Log
                         Out</button>
                 </div>
             </div>
-            <div class="col py-3" style="background-color:
-                                    whitesmoke; overflow:scroll;">
+            <div class="content col py-3">
                 {% block content %} {% endblock %}
             </div>
         </div>

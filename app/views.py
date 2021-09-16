@@ -54,17 +54,18 @@ def firebaseLogin():
 
         if login(email, password):
             session["email"] = email
+            session["currentUser"] = getUID()
             
             collection =  db["Profile"]
-            profileData = collection.find_one({"_id": getUID()})
+            profileData = collection.find_one({"_id": session["currentUser"]})
             
             if profileData:
                 session["profile_img_url"] = profileData["profile_image_url"]
             else:
                 session.pop("profile_img_url", None)
             
-            #return redirect(url_for("home"))
-            return render_template("public/home.html")
+            return redirect(url_for("home"))
+            #return render_template("public/home.html")
         else:
             flash("Invalid Email or Password")
             return redirect(url_for("index"))
@@ -90,6 +91,7 @@ def firebaseSignup():
 def firebaseLogout():
     logout()
     session.pop("profile_img_url", None)
+    session.pop("currentUser", None)
     return redirect(url_for("index"))
 
 @app.route("/home")
@@ -122,7 +124,7 @@ def profile():
     if isLoggedIn():
         active = "profile"
         collection = db["Profile"]
-        data = collection.find_one({"_id": getUID()})
+        data = collection.find_one({"_id": session["currentUser"]})
         return render_template("public/profile.html", active=active, data=data)
     else:
         return redirect(url_for("index"))
@@ -133,14 +135,14 @@ def write():
     if (request.form["feet"] != ""):
         collection = db["Profile"]
         
-        form0 = {"_id": getUID(),
+        form0 = {"_id": session["currentUser"],
                  "feet": request.form["feet"],
                  "inches": request.form["inches"],
                  "weight": request.form["weight"],
                  "age": request.form["age"]
                  }
         
-        collection.update_one({"_id": getUID()},
+        collection.update_one({"_id": session["currentUser"]},
                               {"$set":form0},
                               upsert=True
         )
@@ -148,12 +150,12 @@ def write():
     elif (request.form["reading"]!=""):
         collection = db["Blood_Pressure"]
         
-        form1 = {"_id": getUID(),
+        form1 = {"_id": session["currentUser"],
                  "date": request.form["date"],
                  "reading": request.form["reading"]
                  }
         
-        collection.update_one({"_id": getUID()},
+        collection.update_one({"_id": session["currentUser"]},
                               {"$set":form1},
                               upsert=True
         )
@@ -161,7 +163,7 @@ def write():
     else: 
         print("ERROR")
         
-    print("not called")
+    #print("not called")
     
     return render_template("public/home.html")
 
@@ -186,7 +188,7 @@ def editProfile():
     res = requests.post(url, payload)  
     imageUrl = res.json()["data"]["image"]["url"]
     
-    form = {"_id": getUID(),
+    form = {"_id": session["currentUser"],
             "aboutme": request.form["aboutme"],
             "username": request.form["username"],
             "feet": request.form["feet"],
@@ -196,7 +198,7 @@ def editProfile():
             "profile_image_url": imageUrl
                 }
     
-    collection.update_one({"_id": getUID()},
+    collection.update_one({"_id": session["currentUser"]},
                           {"$set":form},
                           upsert=True
                           )

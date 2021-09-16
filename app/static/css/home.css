@@ -1,0 +1,9 @@
+
+.add_btn{
+    background-color: #32A060;
+    padding: 1rem;
+}
+
+.add_btn:hover{
+    background-color:#4be68c;
+}

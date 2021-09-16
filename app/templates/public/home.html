@@ -1,5 +1,7 @@
 {% extends "public/templates/navbar_templates.html" %}
 
+{% block css %}<link rel="stylesheet" href="../../static/css/home.css"> {% endblock %}
+
 {% block title %}Home{% endblock %}
 
 {% block content %}
@@ -31,7 +33,6 @@
                         <form action="/write" method="POST">
                             <select class="form-select" aria-label="Default select example">
                                 <option selected></option>
-                                <option value="0">Basic Info</option>
                                 <option value="1">Blood Pressure(s)</option>
                                 <option value="2">Blood Pressure(s)</option>
                                 <option value="3">Pulse Measurement(s)</option>

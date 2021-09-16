@@ -1,0 +1,84 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100vh;
+}
+
+.pageContainer, .row.flex-nowrap{
+    min-height: 100vh;
+}
+
+.appName {
+    width:100%;
+    background-color: #32A060;
+}
+
+.profilePic {
+    border: 3px solid;
+    border-color: gray;
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.navbarHR {
+    height: 4px !important;
+    width: 100%;
+    margin-top: 50px;
+    color: black;
+}
+
+.nav.nav-pills.flex-column {
+    margin-top: 30px;
+    width: 100%;
+    gap: 20px;
+}
+
+
+.navIcon {
+    width: 30px;
+    height: 30px;
+    margin-right: 20px;
+}
+
+a:link {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    background-color: transparent;
+    text-decoration: none;
+}
+
+.nav-pills>li>a.active {
+    color: rgb(60, 54, 54) !important;
+    background-color: #32A060 !important;
+}
+
+.nav-pills>li>a:hover {
+    color: rgb(60, 54, 54) !important;
+    background-color: #77b891 !important;
+}
+
+.logoutButton {
+    width: 100%;
+    border-radius: 13px;
+    margin-top: 15rem;
+    background-color: #32A060;
+}
+
+.content {
+    background-color: whitesmoke;
+}
